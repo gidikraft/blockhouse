@@ -1,0 +1,60 @@
+name: Android & iOS Build
+
+on:
+  push:
+    branches:
+      - main
+      - develop
+      - release/*
+
+jobs:
+  android-build:
+    name: Build Android App
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'temurin'
+          java-version: 17
+
+      - name: Grant execute permission to Gradlew
+        run: chmod +x gradlew
+
+      - name: Install dependencies
+        run: ./gradlew dependencies
+
+      - name: Build APK
+        run: ./gradlew assembleDebug
+
+      - name: Upload APK artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: android-apk
+          path: app/build/outputs/apk/debug/*.apk
+
+  ios-build:
+    name: Build iOS App
+    runs-on: macos-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Xcode
+        run: sudo xcode-select -s /Applications/Xcode.app/Contents/Developer
+
+      - name: Install dependencies
+        run: pod install --project-directory=ios
+
+      - name: Build iOS App
+        run: xcodebuild -workspace ios/MyApp.xcworkspace -scheme MyApp -sdk iphoneos -configuration Release build CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO
+
+      - name: Upload iOS artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ios-build
+          path: ios/build/**/*.app

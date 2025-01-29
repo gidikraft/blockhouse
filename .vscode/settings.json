@@ -1,0 +1,16 @@
+{
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": "explicit"
+  },
+  "eslint.validate": [
+    "typescript"
+  ],
+  "java.configuration.updateBuildConfiguration": "interactive",
+  "cSpell.words": [
+    "eventpass",
+    "leaderboard",
+    "Multipages",
+    "svgs",
+    "waitlist"
+  ]
+}
