@@ -19,7 +19,7 @@ const Home = () => {
         <Text style={styles.header}>Welcome {user}</Text>
       </View>
 
-      <View style={{ paddingHorizontal: 20 }}>
+      <View style={styles.btn_view}>
         <PrimaryButton buttonPress={logoutUser} label="Logout" />
       </View>
     </SafeAreaView>
@@ -40,5 +40,8 @@ const styles = StyleSheet.create({
   header: {
     fontSize: 18,
     fontFamily: 'DMSans-Bold',
+  },
+  btn_view: {
+    paddingHorizontal: 20,
   },
 });
