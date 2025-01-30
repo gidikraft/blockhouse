@@ -3,7 +3,7 @@ name: Android & iOS Build
 on:
   push:
     branches:
-      - main
+      - master
       - develop
       - release/*
 
