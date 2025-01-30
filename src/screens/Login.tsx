@@ -13,6 +13,7 @@ import { PrimaryButton, PrimaryInput } from '../components';
 import { isValidEmail } from '../util/validation';
 import { loginSuccesss, updateCurrentUser } from '../store/reducers/authSlice';
 import { COLORS } from '../config/Constants';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -65,7 +66,12 @@ const Login = () => {
 
   return (
     <SafeAreaView style={styles.main_container}>
-      <View style={styles.container}>
+      <KeyboardAwareScrollView
+        showsVerticalScrollIndicator={false}
+        contentContainerStyle={styles.container}
+        keyboardDismissMode="interactive"
+        keyboardShouldPersistTaps="handled"
+        enableOnAndroid>
         <Text style={styles.header}>Blockhouse</Text>
 
         <Text style={styles.login}>Login</Text>
@@ -107,7 +113,7 @@ const Login = () => {
             instead
           </Text>
         </View>
-      </View>
+      </KeyboardAwareScrollView>
     </SafeAreaView>
   );
 };
@@ -128,10 +134,12 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontSize: 48,
     fontFamily: 'DMSans-Bold',
+    color: COLORS.Black,
   },
   login: {
     marginTop: 24,
     fontSize: 24,
+    color: COLORS.Black,
   },
   forgot_password_view: {
     flexDirection: 'row',
@@ -144,6 +152,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
     marginTop: 16,
+    color: COLORS.Black,
   },
   create_acount: {
     color: '#5917b0',

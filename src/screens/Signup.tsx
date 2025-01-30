@@ -5,13 +5,14 @@ import {
   TouchableWithoutFeedback,
   View,
 } from 'react-native';
-import React, { useCallback, useState } from 'react';
+import React, { useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { PrimaryButton, PrimaryInput } from '../components';
 import { isValidEmail, isValidPassword } from '../util/validation';
 import { useAppDispatch } from '../hooks/redux';
 import { loginSuccesss } from '../store/reducers/authSlice';
 import { COLORS } from '../config/Constants';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
 const Signup = () => {
   const [email, setEmail] = useState('');
@@ -77,15 +78,20 @@ const Signup = () => {
     }
   };
 
-  const toLogin = useCallback(() => {
+  const toLogin = () => {
     navigation.navigate('LoginScreen');
 
     return;
-  }, [navigation]);
+  };
 
   return (
     <SafeAreaView style={styles.main_container}>
-      <View style={styles.container}>
+      <KeyboardAwareScrollView
+        showsVerticalScrollIndicator={false}
+        contentContainerStyle={styles.container}
+        keyboardDismissMode="interactive"
+        keyboardShouldPersistTaps="handled"
+        enableOnAndroid>
         <Text style={styles.header}>Blockhouse</Text>
 
         <Text style={styles.create_account}>Create an account</Text>
@@ -135,7 +141,7 @@ const Signup = () => {
             instead
           </Text>
         </View>
-      </View>
+      </KeyboardAwareScrollView>
     </SafeAreaView>
   );
 };
@@ -156,6 +162,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontSize: 48,
     fontFamily: 'DMSans-Bold',
+    color: COLORS.Black,
   },
   password_hint: {
     fontSize: 12,
@@ -164,11 +171,13 @@ const styles = StyleSheet.create({
   create_account: {
     marginTop: 24,
     fontSize: 24,
+    color: COLORS.Black,
   },
   have_account: {
     flexDirection: 'row',
     justifyContent: 'center',
     marginTop: 16,
+    color: COLORS.Black,
   },
   signin: {
     color: '#5917b0',
